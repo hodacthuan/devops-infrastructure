@@ -17,8 +17,9 @@ Console consumer
 ```bash
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic local_sanitization_failure
 ```
-
-
+## Roadmap
+- Add Kafka, zookeeper docker images built using docker-compose
+- Add Kafka manager deployment
 ## Acknowledge
 
 - [Kafka Quickstart](https://kafka.apache.org/quickstart)
