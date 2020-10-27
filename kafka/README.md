@@ -23,3 +23,4 @@ Console consumer
 
 - [Kafka Quickstart](https://kafka.apache.org/quickstart)
 - [Kafka Manager](https://github.com/yahoo/CMAK)
+- [Using Apache Kafka Command-line Tools](https://github.com/hodacthuan?tab=repositories)
