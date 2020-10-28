@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  mongodb:
+    image: $MONGODB_NAME/mongo:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: $MONGODB_NAME-mongodb
+    restart: always
+    env_file:
+      - $DEPLOY_ENV.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGODB_PORT=27017
+    volumes:
+      - ./mongo-data/$MONGODB_NAME:/data/db
+      - ./mongo-src:/scripts
+    ports:
+      - ${MONGODB_EXTERNAL_PORT}:27017
+    expose:
+      - ${MONGODB_EXTERNAL_PORT}
+    logging:
+      options:
+        max-size: 2m
+    networks:
+      network:
+        aliases:
+          - mongodb
+
+networks:
+  network:
+    name: $MONGODB_NAME-network
