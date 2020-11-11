@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  redisdb:
+    image: $REDISDB_NAME/redisdb:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DB_PASSWORD: $DB_PASSWORD
+
+    container_name: $REDISDB_NAME-redisdb
+    restart: always
+    env_file:
+      - $DEPLOY_ENV.env
+    ports:
+      - $REDISDB_EXTERNAL_PORT:6379
+    expose:
+      - $REDISDB_EXTERNAL_PORT
+    logging:
+      options:
+        max-size: 2m
+    networks:
+      network:
+        aliases:
+          - redisdb
+
+networks:
+  network:
+    name: $REDISDB_NAME-network
