@@ -7,6 +7,7 @@ source ./common.sh
 
 sudo rm -rf mongo-data/$MONGODB_NAME
 
+docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml down
 docker-compose -f docker-compose.yml up -d
 
