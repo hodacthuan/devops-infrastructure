@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  selenium:
+    image: selenium/standalone-chrome:4.0.0-beta-1-prerelease-20201202
+    volumes:
+      - /dev/shm:/dev/shm
+    container_name: $SELENIUM_NAME-selenium
+    deploy:
+      replicas: 1
+    environment:
+      - VNC_NO_PASSWORD=1
+    ports:
+      - ${SELENIUM_EVENT_BUS_PUBLISH_PORT:-4444}:4444
+      - ${DEBUG_PORT:-5900}:5900
+    logging:
+      options:
+        max-size: 2m
+    networks:
+      network:
+        aliases:
+          - selenium
+          
+  video:
+    image: selenium/video:ffmpeg-4.3.1-20201208
+    container_name: $SELENIUM_NAME-video
+    volumes:
+      - ./videos:/videos
+    depends_on:
+      - selenium
+    environment:
+      - DISPLAY_CONTAINER_NAME=selenium
+      - FILE_NAME=video.mp4
+    logging:
+      options:
+        max-size: 2m
+    networks:
+      network:
+        aliases:
+          - video
+networks:
+  network:
+    name: $SELENIUM_NAME-network
