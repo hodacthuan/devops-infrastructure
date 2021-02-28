@@ -1,0 +1,18 @@
+version: "2"
+services:
+  jenkins:
+    image: ${DOCKER_REGISTRY}/jenkins:1.0
+    container_name: ${JENKINS_CONTAINER_NAME}
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ${DEPLOY_DIR}/volumes/jenkins-data:/bitnami/jenkins
+    environment:
+      - JENKINS_USERNAME=root
+      - JENKINS_PASSWORD=7hrLsasaVYMTTpjbTAJGGS6T99Zcb6QW
+      - DISABLE_JENKINS_INITIALIZATION=no
+      - GIT_SSL_NO_VERIFY=1
+      - USER=jenkins
+      - GID=jenkins
+      - UID=1001
