@@ -18,7 +18,8 @@ services:
         aliases:
           - zookeeper
   kafka:
-    image: wurstmeister/kafka:latest
+    # image: wurstmeister/kafka:latest
+    image: kafka:1.0
     command: bash -c start-kafka.sh
 
     build:
