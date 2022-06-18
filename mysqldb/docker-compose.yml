@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  mysqldb:
+    image: lfw-mm/mysql:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: lfw-mm-mysqldb
+    restart: always
+    env_file:
+      - .env
+
+    volumes:
+      - ./mysql-data/lfw-mm:/var/lib/mysql
+    #   - ./mysql-src:/scripts
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    logging:
+      options:
+        max-size: 2m
+    networks:
+      network:
+        aliases:
+          - mysqldb
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     network:
+  #       aliases:
+  #         - adminer
+networks:
+  network:
+    name: lfw-mysqldb-network
